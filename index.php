@@ -56,19 +56,79 @@
         </div>
     </nav>
 
-    <!----------------------------------------- HERO SECTION ----------------------------------------->
+    <!----------------------------------------- HERO SLIDER ----------------------------------------->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Discover Exclusive NSBM Merchandise</h1>
-            <p>Premium quality apparel and accessories designed for the NSBM community</p>
-            <div class="hero-buttons">
-                <a href="#" class="btn-primary">Shop Now</a>
-                <a href="#" class="btn-outline">Learn More</a>
+    <div class="hero-content">
+        <h1>Discover Exclusive NSBM Merchandise</h1>
+        <p>Premium quality apparel and accessories designed for the NSBM community</p>
+        <div class="hero-buttons">
+        <a href="#" class="btn-primary">Shop Now</a>
+        <a href="#" class="btn-outline">Learn More</a>
+        </div>
+    </div>
+
+    <!-- Hero Slider -->
+    <div class="hero-slider">
+        <div class="slider-container">
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="product-info-overlay">
+            <h3>NSBM T-Shirt</h3>
+            <div class="price">Rs. 1,500 <span class="original-price">Rs. 2,000</span></div>
+            <div class="deal-badge">25% OFF</div>
+            <button class="shop-now-btn">Shop Now <i class="fas fa-arrow-right"></i></button>
             </div>
+            <img src="./assets/images/T-Shirt.jpg" alt="NSBM T-Shirt">
         </div>
-        <div class="hero-image">
-            <img src="./assets/images/shopping_image.svg" alt="NSBM Merchandise">
+        
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="product-info-overlay">
+            <h3>NSBM Hoodie</h3>
+            <div class="price">Rs. 3,500</div>
+            <div class="shipping-badge">Free Shipping</div>
+            <button class="shop-now-btn">Shop Now <i class="fas fa-arrow-right"></i></button>
+            </div>
+            <img src="./assets/images/Hoodie 2.jpg" alt="NSBM Hoodie">
         </div>
+        
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="product-info-overlay">
+            <h3>NSBM Cap</h3>
+            <div class="price">Rs. 800</div>
+            <div class="stock-info">Only 3 left!</div>
+            <button class="shop-now-btn">Shop Now <i class="fas fa-arrow-right"></i></button>
+            </div>
+            <img src="./assets/images/Cap.jpg" alt="NSBM Cap">
+        </div>
+        
+        <!-- Slide 4 -->
+        <div class="slide">
+            <div class="product-info-overlay">
+            <h3>NSBM Notebook</h3>
+            <div class="price">Rs. 500</div>
+            <div class="rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+                <span>(12)</span>
+            </div>
+            <button class="shop-now-btn">Shop Now <i class="fas fa-arrow-right"></i></button>
+            </div>
+            <img src="./assets/images/Notebook.jpg" alt="NSBM Notebook">
+        </div>
+        </div>
+        
+        <!-- Slider Controls -->
+        <div class="slider-controls">
+        <button class="prev-slide"><i class="fas fa-chevron-left"></i></button>
+        <div class="slide-indicators"></div>
+        <button class="next-slide"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
     </section>
 
     <!--------------------------------------- FONT AWESOME ICONS --------------------------------------->

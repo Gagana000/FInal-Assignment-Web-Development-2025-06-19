@@ -181,130 +181,271 @@ nav {
 }
 
 .middle-section, .right-section {
-    transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 /*---------------------------------------------- Hero Section ----------------------------------------------*/
-/* ================ */
-/* HERO SECTION */
-/* ================ */
 .hero {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 80px 40px;
-    background-color: var(--primary-light);
-    color: var(--primary-dark);
-    gap: 40px;
+  width: 80%;
+  height: 40vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 40px;
+  background: 
+    linear-gradient(rgba(0, 0, 0, 0.600), rgba(0, 0, 0, 0.600)),
+    url(./assets/images/Background\ image\ 2.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--pure-white);
+  gap: 40px;
+  position: relative;
+  margin: 20px auto;
+  border-radius: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .hero-content {
-    max-width: 600px;
+  max-width: 600px;
+  animation: fadeIn 1s ease-out;
+  z-index: 1;
 }
 
 .hero h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-    line-height: 1.2;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
 }
 
 .hero p {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-    color: var(--primary-dark);
-    opacity: 0.9;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: var(--pure-white);
+  opacity: 0.9;
 }
 
 .hero-buttons {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .btn-primary {
-    background-color: var(--primary-accent);
-    color: var(--pure-white);
-    padding: 12px 24px;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    display: inline-block;
+  background-color: var(--primary-accent);
+  color: var(--pure-white);
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
 .btn-primary:hover {
-    background-color: #1a6ba5;
-    transform: translateY(-2px);
+  background-color: #1a6ba5;
+  transform: translateY(-2px);
 }
 
 .btn-outline {
-    border: 2px solid var(--primary-accent);
-    color: var(--primary-accent);
-    padding: 12px 24px;
-    border-radius: var(--border-radius-md);
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    display: inline-block;
+  border: 2px solid var(--pure-white);
+  color: var(--pure-white);
+  padding: 12px 24px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
 .btn-outline:hover {
-    background-color: var(--primary-accent);
-    color: var(--pure-white);
-    transform: translateY(-2px);
+  background-color: var(--primary-accent);
+  color: var(--pure-white);
+  transform: translateY(-2px);
+  border-color: var(--primary-accent);
+}
+
+.hero-image{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hero-image img {
-    border-radius: var(--border-radius-md);
-    box-shadow: var(--shadow-lg);
-    max-width: 100%;
-    height: auto;
+  border-radius: 10px;
+  box-shadow: var(--shadow-lg);
+  max-width: 60%;
+  height: auto;
 }
 
-/* Responsive Hero Section */
-@media (max-width: 992px) {
-    .hero {
-        flex-direction: column;
-        text-align: center;
-        padding: 60px 20px;
-    }
-    
-    .hero-content {
-        max-width: 100%;
-        margin-bottom: 40px;
-    }
-    
-    .hero-buttons {
-        justify-content: center;
-    }
+.hero-slider {
+  position: relative;
+  width: 70%;
+  height: 35vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  display: flex;
 }
 
-@media (max-width: 768px) {
-    .hero h1 {
-        font-size: 2rem;
-    }
-    
-    .hero p {
-        font-size: 1rem;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .btn-primary, .btn-outline {
-        width: 100%;
-        text-align: center;
-    }
+.slider-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
+.slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
 
+.slide.active {
+  opacity: 1;
+}
 
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
+.product-info-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(2, 43, 58, 0.85);
+  color: var(--pure-white);
+  padding: 20px;
+  transform-origin: bottom;
+  transition: transform 0.3s ease;
+  transform: translateY(90%) perspective(500px) rotateX(45deg);
+}
 
+.slide:hover .product-info-overlay {
+  transform: translateY(0) perspective(500px) rotateX(0);
+}
 
+.product-info-overlay h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
 
+.price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.original-price {
+  text-decoration: line-through;
+  font-size: 1rem;
+  color: var(--secondary-light);
+  margin-left: 8px;
+}
+
+.deal-badge, .shipping-badge, .stock-info {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: var(--primary-accent);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+.shipping-badge {
+  background-color: #4CAF50;
+}
+
+.stock-info {
+  background-color: #F44336;
+}
+
+.rating {
+  margin-bottom: 15px;
+  color: #FFD700;
+}
+
+.rating span {
+  color: var(--secondary-light);
+  margin-left: 5px;
+}
+
+.shop-now-btn {
+  background-color: var(--pure-white);
+  color: var(--primary-dark);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.shop-now-btn:hover {
+  background-color: var(--primary-accent);
+  color: var(--pure-white);
+}
+
+.slider-controls {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.prev-slide, .next-slide {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: var(--pure-white);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.prev-slide:hover, .next-slide:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.slide-indicators {
+  display: flex;
+  gap: 10px;
+}
+
+.slide-indicators span {
+  display: block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+
+.slide-indicators span.active {
+  background: var(--pure-white);
+}
 
 
 /*---------------------------------------------- Responsive Design ----------------------------------------------*/
@@ -408,5 +549,42 @@ nav {
 
     .Logo{
       display: block;
+    }
+}
+
+@media (max-width: 992px) {
+    .hero {
+      flex-direction: column;
+      text-align: center;
+      padding: 60px 20px;
+    }
+    
+    .hero-content {
+      max-width: 100%;
+      margin-bottom: 40px;
+    }
+    
+    .hero-buttons {
+      justify-content: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+      font-size: 2rem;
+    }
+    
+    .hero p {
+      font-size: 1rem;
+    }
+    
+    .hero-buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .btn-primary, .btn-outline {
+      width: 100%;
+      text-align: center;
     }
 }
