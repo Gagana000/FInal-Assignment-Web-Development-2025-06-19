@@ -49,10 +49,18 @@
 
         </div>
         <div class="right-section">
-            <button type="button">Login<i class="fa-solid fa-user"></i></button>
-            <button type="button">Register<i class="fa-solid fa-user-plus"></i></button>
-            <button type="button"><i class="fa-solid fa-cart-shopping"></i></button>
-            <button type="button"><i class="fa-solid fa-user"></i></button>
+            <button type="button" onclick="window.location.href='includes/admin/login.php'">
+                Login <i class="fa-solid fa-user"></i>
+            </button>
+            <button type="button" onclick="window.location.href='includes/register.php'">
+                Register <i class="fa-solid fa-user-plus"></i>
+            </button>
+            <button type="button" onclick="window.location.href='includes/cart.php'">
+                <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+            <button type="button" onclick="window.location.href='includes/profile.php'">
+                <i class="fa-solid fa-user"></i>
+            </button>
         </div>
     </nav>
 

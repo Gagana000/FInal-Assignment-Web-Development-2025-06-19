@@ -41,3 +41,17 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+// Register page
+function togglePassword(fieldId) {
+  const field = document.getElementById(fieldId);
+  const icon = field.nextElementSibling.querySelector("i");
+
+  if (field.type === "password") {
+    field.type = "text";
+    icon.classList.replace("fa-eye", "fa-eye-slash");
+  } else {
+    field.type = "password";
+    icon.classList.replace("fa-eye-slash", "fa-eye");
+  }
+}

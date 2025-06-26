@@ -1,8 +1,9 @@
 <?php
-$host = 'localhost';
-$dbname = 'nsbm_shop';
-$username = 'root';
-$password = '';
+// includes/database.php
+$host = 'localhost';      // Usually 'localhost'
+$dbname = 'nsbm_shop';    // Your database name
+$username = 'gagana';     // Username (as per your GRANT command)
+$password = 'gagana123';  // Password (as per your GRANT command)    
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

@@ -319,7 +319,158 @@ nav {
   }
 }
 
-/* ------------------ hero texture ------------------------ */
+/*---------------------------------------------- Register Page ----------------------------------------------*/
+.register-container {
+  width: 100%;
+  max-width: 500px;
+  background: rgba(2, 43, 58, 0.58);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(17.4px);
+  -webkit-backdrop-filter: blur(17.4px);
+  border: 1px solid rgba(2, 43, 58, 1);
+  border-radius: 12px;
+  padding: 40px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.register-container h1 {
+  color: var(--pure-white);
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+.error {
+  background: rgba(244, 67, 54, 0.15);
+  color: var(--error);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--error);
+}
+
+.error p {
+  margin: 5px 0;
+}
+
+.success {
+  background: rgba(75, 181, 67, 0.15);
+  color: var(--success);
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border-left: 4px solid var(--success);
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--secondary-light);
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 20px;
+  background: rgba(225, 229, 242, 0.1);
+  border: 1px solid rgba(225, 229, 242, 0.2);
+  border-radius: 8px;
+  color: var(--pure-white);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-accent);
+  background: rgba(31, 122, 188, 0.1);
+}
+
+.form-group input::placeholder {
+  color: rgba(225, 229, 242, 0.5);
+}
+
+.btn {
+  width: 100%;
+  background-color: var(--primary-accent);
+  color: var(--pure-white);
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  background-color: #1a6ba5;
+  transform: translateY(-2px);
+}
+
+.register-container p {
+  text-align: center;
+  margin-top: 20px;
+  color: var(--secondary-light);
+}
+
+.register-container a {
+  color: var(--primary-light);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.register-container a:hover {
+  color: var(--primary-accent);
+  text-decoration: underline;
+}
+
+.password-strength {
+  height: 4px;
+  background: rgba(225, 229, 242, 0.1);
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.password-strength::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--error);
+  transition: width 0.3s ease;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 43px;
+  cursor: pointer;
+  color: var(--secondary-light);
+  transition: all 0.2s ease;
+  font-size: 0.8rem;
+}
+.password-toggle:hover {
+  color: var(--primary-accent);
+}
+.password-toggle i {
+  pointer-events: none;
+}
+.form-group {
+  position: relative;
+}
 
 /*---------------------------------------------- Responsive Design ----------------------------------------------*/
 @media (max-width: 1300px) {
@@ -461,5 +612,37 @@ nav {
 
   .feature-card {
     min-width: 100%;
+  }
+}
+
+/* Responsive Design for Register page */
+@media (max-width: 768px) {
+  .register-container {
+    padding: 30px 20px;
+  }
+
+  .register-container h1 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 15px;
+  }
+
+  .register-container {
+    padding: 25px 15px;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
