@@ -1,4 +1,8 @@
 <?php
+require_once __DIR__ . '/../auth_functions.php';
+require_login();
+require_admin();
+
 // Start session and include database connection
 session_start();
 require_once __DIR__ . '/../../includes/database.php';

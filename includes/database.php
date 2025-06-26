@@ -1,14 +1,13 @@
 <?php
-// includes/database.php
-$host = 'localhost';      // Usually 'localhost'
-$dbname = 'nsbm_shop';    // Your database name
-$username = 'gagana';     // Username (as per your GRANT command)
-$password = 'gagana123';  // Password (as per your GRANT command)    
+    $host = 'localhost';
+    $dbname = 'nsbm_shop';
+    $username = 'gagana';
+    $password = 'gagana123';
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Database connection failed: " . $e->getMessage());
-}
+    try {
+        $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    } catch (PDOException $e) {
+        die("Connection failed: " . $e->getMessage());
+    }
 ?>

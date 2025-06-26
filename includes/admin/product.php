@@ -3,7 +3,8 @@ session_start();
 if (!isset($_SESSION['admin'])) header("Location: login.php");
 
 include('../../includes/database.php');
-$products = mysqli_query($conn, "SELECT * FROM products");
+$stmt = $pdo->prepare("SELECT * FROM products");
+$stmt->execute();
 ?>
 
 <table>

@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute([$username, $email, $hashed_password, $role]);
 
         $_SESSION['success'] = "Registration successful! Please login.";
-        header("Location: login.php");
+        header("Location: admin/login.php");
         exit();
     }
 }

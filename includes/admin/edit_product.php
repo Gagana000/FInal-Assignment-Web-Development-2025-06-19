@@ -1,18 +1,23 @@
 <?php
-$id = $_GET['id'];
-$product = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM products WHERE id = $id"));
+  require_once __DIR__ . '/../auth_functions.php';
+  require_login();
+  require_admin();
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $name = $_POST['name'];
-  $price = $_POST['price'];
-  $stock = $_POST['stock'];
-  
-  mysqli_query($conn, "UPDATE products SET 
-    name = '$name', 
-    price = $price, 
-    stock = $stock 
-    WHERE id = $id");
-  header("Location: product.php");
+  $id = $_GET['id'];
+  $stmt = $pdo->prepare("SELECT * FROM products");
+  $stmt->execute();
+
+  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'];
+    $price = $_POST['price'];
+    $stock = $_POST['stock'];
+    
+    mysqli_query($conn, "UPDATE products SET 
+      name = '$name', 
+      price = $price, 
+      stock = $stock 
+      WHERE id = $id");
+    header("Location: product.php");
 }
 ?>
 

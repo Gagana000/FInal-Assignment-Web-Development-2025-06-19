@@ -55,3 +55,35 @@ function togglePassword(fieldId) {
     icon.classList.replace("fa-eye-slash", "fa-eye");
   }
 }
+
+// Logging Page
+function switchTab(tab) {
+  // Hide all tab contents
+  document.querySelectorAll(".tab-content").forEach((content) => {
+    content.classList.remove("active");
+  });
+
+  // Deactivate all tab buttons
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.classList.remove("active");
+  });
+
+  // Activate selected tab
+  document.getElementById(tab + "-tab").classList.add("active");
+  document
+    .querySelector(`.tab-btn:nth-child(${tab === "customer" ? 1 : 2})`)
+    .classList.add("active");
+}
+
+function togglePassword(fieldId) {
+  const field = document.getElementById(fieldId);
+  const icon = field.nextElementSibling.querySelector("i");
+
+  if (field.type === "password") {
+    field.type = "text";
+    icon.classList.replace("fa-eye", "fa-eye-slash");
+  } else {
+    field.type = "password";
+    icon.classList.replace("fa-eye-slash", "fa-eye");
+  }
+}
