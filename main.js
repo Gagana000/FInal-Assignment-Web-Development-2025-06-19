@@ -58,17 +58,14 @@ function togglePassword(fieldId) {
 
 // Logging Page
 function switchTab(tab) {
-  // Hide all tab contents
   document.querySelectorAll(".tab-content").forEach((content) => {
     content.classList.remove("active");
   });
 
-  // Deactivate all tab buttons
   document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.classList.remove("active");
   });
 
-  // Activate selected tab
   document.getElementById(tab + "-tab").classList.add("active");
   document
     .querySelector(`.tab-btn:nth-child(${tab === "customer" ? 1 : 2})`)
@@ -86,4 +83,77 @@ function togglePassword(fieldId) {
     field.type = "password";
     icon.classList.replace("fa-eye-slash", "fa-eye");
   }
+}
+
+// CRUD - add product
+const imageUploadArea = document.getElementById("imageUploadArea");
+const fileInput = document.getElementById("image");
+const imagePreview = document.getElementById("imagePreview");
+
+imageUploadArea.addEventListener("click", () => fileInput.click());
+
+imageUploadArea.addEventListener("dragover", (e) => {
+  e.preventDefault();
+  imageUploadArea.style.borderColor = "var(--primary-accent)";
+  imageUploadArea.style.backgroundColor = "rgba(31, 122, 188, 0.1)";
+});
+
+imageUploadArea.addEventListener("dragleave", () => {
+  imageUploadArea.style.borderColor = "rgba(31, 122, 188, 0.3)";
+  imageUploadArea.style.backgroundColor = "rgba(225, 229, 242, 0.1)";
+});
+
+imageUploadArea.addEventListener("drop", (e) => {
+  e.preventDefault();
+  imageUploadArea.style.borderColor = "rgba(31, 122, 188, 0.3)";
+  imageUploadArea.style.backgroundColor = "rgba(225, 229, 242, 0.1)";
+
+  if (e.dataTransfer.files.length) {
+    fileInput.files = e.dataTransfer.files;
+    updatePreview();
+  }
+});
+
+fileInput.addEventListener("change", updatePreview);
+
+function updatePreview() {
+  if (fileInput.files && fileInput.files[0]) {
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      imagePreview.src = e.target.result;
+      imagePreview.style.display = "block";
+      imageUploadArea.innerHTML = "";
+      imageUploadArea.appendChild(imagePreview);
+
+      const fileName = document.createElement("p");
+      fileName.textContent = fileInput.files[0].name;
+      fileName.style.marginTop = "15px";
+      fileName.style.color = "var(--primary-dark)";
+      imageUploadArea.appendChild(fileName);
+
+      const changeText = document.createElement("p");
+      changeText.textContent = "Click to change image";
+      changeText.style.color = "var(--primary-accent)";
+      changeText.style.fontSize = "0.9rem";
+      imageUploadArea.appendChild(changeText);
+    };
+
+    reader.readAsDataURL(fileInput.files[0]);
+  }
+}
+
+const description = document.getElementById("description");
+if (description) {
+  const charCounter = document.createElement("div");
+  charCounter.style.textAlign = "right";
+  charCounter.style.fontSize = "0.8rem";
+  charCounter.style.color = "var(--primary-dark)";
+  charCounter.style.opacity = "0.7";
+  charCounter.style.marginTop = "5px";
+  description.parentNode.appendChild(charCounter);
+
+  description.addEventListener("input", () => {
+    charCounter.textContent = `${description.value.length}/1000 characters`;
+  });
 }
