@@ -4,9 +4,15 @@ require_once __DIR__ . '/../database.php';
 
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
-    header("Location: " . ($_SESSION['role'] === 'admin' ? 'dashboard.php' : '../../index.php'));
+    header("Location: " . ($_SESSION['role'] === 'admin' ? '../../index.php' : '../../index.php'));
     exit();
 }
+
+if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin') {
+  header("Location: dashboard.php");
+  exit();
+}
+
 
 $error = '';
 
@@ -36,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['role'] = $user['role'];
 
                     // Redirect based on role
-                    header("Location: " . ($user['role'] === 'admin' ? 'dashboard.php' : '../../index.php'));
+                    header("Location: " . ($user['role'] === 'admin' ? '../../index.php' : '../../index.php'));
                     exit();
                 }
             } else {
@@ -45,6 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $error = "Invalid username or password!";
         }
+    }
+
+    $_SESSION['user_id'] = $user['id'];
+    $_SESSION['role'] = $user['role'];
+    if ($user['role'] === 'admin') {
+        header("Location: dashboard.php"); // Absolute path if needed
+        exit();
     }
 }
 ?>

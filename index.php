@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +32,7 @@
         <div class="middle-section">
             <div class="nav-buttons">
                 <ul>
-                    <li><a href="#"><i class="fa-solid fa-house"></i>Home</a></li>
+                    <li><a href="./index.php"><i class="fa-solid fa-house"></i>Home</a></li>
                     <li><a href="#"><i class="fa-solid fa-store"></i>Collection</a></li>
                     <li><a href="#">Categories<i class="fa-solid fa-caret-down"></i></a>
                         <ul class="drop-down-menu">
@@ -46,21 +50,41 @@
             <div class="nav-search">
                 <input type="text" name="search" id="search" placeholder="Search">
             </div>
-
         </div>
         <div class="right-section">
-            <button type="button" onclick="window.location.href='includes/admin/login.php'">
-                Login <i class="fa-solid fa-user"></i>
-            </button>
-            <button type="button" onclick="window.location.href='includes/register.php'">
-                Register <i class="fa-solid fa-user-plus"></i>
-            </button>
-            <button type="button" onclick="window.location.href='includes/cart.php'">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </button>
-            <button type="button" onclick="window.location.href='includes/profile.php'">
-                <i class="fa-solid fa-user"></i>
-            </button>
+            <?php if (!isset($_SESSION['user_id'])): ?>
+                <!-- Logged OUT state -->
+                <button type="button" onclick="window.location.href='includes/admin/login.php'">
+                    Login <i class="fa-solid fa-user"></i>
+                </button>
+                <button type="button" onclick="window.location.href='includes/register.php'">
+                    Register <i class="fa-solid fa-user-plus"></i>
+                </button>
+                <button type="button" onclick="window.location.href='includes/cart.php'">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+            <?php else: ?>
+                <!-- Logged IN state -->
+                <?php if ($_SESSION['role'] === 'admin'): ?>
+                    <!-- Admin View -->
+                    <button type="button" onclick="window.location.href='includes/admin/dashboard.php'">
+                        Dashboard <i class="fa-solid fa-gauge"></i>
+                    </button>
+                <?php else: ?>
+                    <!-- Regular User View -->
+                    <button type="button" onclick="window.location.href='includes/profile.php'">
+                        <i class="fa-solid fa-user"></i>
+                    </button>
+                    <button type="button" onclick="window.location.href='includes/cart.php'">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                    </button>
+                <?php endif; ?>
+                
+                <!-- Logout Button (for all logged-in users) -->
+                <button type="button" onclick="window.location.href='includes/admin/logout.php'">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                </button>
+            <?php endif; ?>
         </div>
     </nav>
 
