@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -65,20 +66,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="../main.js"></script>
     <style>
-      body{
-        background: radial-gradient(circle,rgb(1, 20, 27), rgb(0, 0, 0) 88%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: 100vh;
-      }
+        body {
+            background: radial-gradient(circle, rgb(1, 20, 27), rgb(0, 0, 0) 88%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100vh;
+        }
     </style>
 </head>
+
 <body>
     <div class="register-container">
         <h1>Register</h1>
-        
+
         <?php if (!empty($errors)): ?>
             <div class="error">
                 <?php foreach ($errors as $error): ?>
@@ -122,4 +124,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p>Already have an account? <a href="login.php">Login here</a></p>
     </div>
 </body>
+
 </html>

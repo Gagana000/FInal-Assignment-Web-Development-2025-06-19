@@ -22,8 +22,8 @@ $product = [
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Sanitize inputs
     $product['name'] = trim($_POST['name']);
-    $product['price'] = (float)$_POST['price'];
-    $product['stock'] = (int)$_POST['stock'];
+    $product['price'] = (float) $_POST['price'];
+    $product['stock'] = (int) $_POST['stock'];
     $product['description'] = trim($_POST['description']);
     $product['category'] = $_POST['category'];
 
@@ -48,12 +48,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
         $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
         $fileType = $_FILES['image']['type'];
-        
+
         if (in_array($fileType, $allowedTypes)) {
             $uploadDir = '../../assets/uploads/';
             $fileName = uniqid() . '_' . basename($_FILES['image']['name']);
             $targetPath = $uploadDir . $fileName;
-            
+
             if (move_uploaded_file($_FILES['image']['tmp_name'], $targetPath)) {
                 $product['image_url'] = $fileName;
             } else {
@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $product['category'],
                 $product['image_url']
             ]);
-            
+
             $success = true;
             // Clear form on success
             $product = [
@@ -99,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -107,6 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="../../main.js" defer></script>
 </head>
+
 <body>
     <div class="admin-container">
         <aside class="admin-sidebar">
@@ -152,52 +154,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="form-group <?= isset($errors['name']) ? 'has-error' : '' ?>">
                             <label for="name">Product Name</label>
                             <input type="text" id="name" name="name" required
-                                   value="<?= htmlspecialchars($product['name']) ?>">
+                                value="<?= htmlspecialchars($product['name']) ?>">
                             <?php if (isset($errors['name'])): ?>
                                 <span class="error-message"><?= $errors['name'] ?></span>
                             <?php endif; ?>
                         </div>
-                        
+
                         <div class="form-group <?= isset($errors['price']) ? 'has-error' : '' ?>">
                             <label for="price">Price ($)</label>
                             <input type="number" id="price" name="price" step="0.01" min="0.01" required
-                                   value="<?= htmlspecialchars($product['price']) ?>">
+                                value="<?= htmlspecialchars($product['price']) ?>">
                             <?php if (isset($errors['price'])): ?>
                                 <span class="error-message"><?= $errors['price'] ?></span>
                             <?php endif; ?>
                         </div>
-                        
+
                         <div class="form-group <?= isset($errors['stock']) ? 'has-error' : '' ?>">
                             <label for="stock">Stock Quantity</label>
                             <input type="number" id="stock" name="stock" min="0" required
-                                   value="<?= htmlspecialchars($product['stock']) ?>">
+                                value="<?= htmlspecialchars($product['stock']) ?>">
                             <?php if (isset($errors['stock'])): ?>
                                 <span class="error-message"><?= $errors['stock'] ?></span>
                             <?php endif; ?>
                         </div>
-                        
+
                         <div class="form-group select-wrapper <?= isset($errors['category']) ? 'has-error' : '' ?>">
                             <label for="category">Category</label>
                             <select id="category" name="category" required>
                                 <option value="">Select Category</option>
-                                <option value="T-Shirts" <?= $product['category'] === 'T-Shirts' ? 'selected' : '' ?>>T-Shirts</option>
-                                <option value="Hoodies" <?= $product['category'] === 'Hoodies' ? 'selected' : '' ?>>Hoodies</option>
+                                <option value="T-Shirts" <?= $product['category'] === 'T-Shirts' ? 'selected' : '' ?>>
+                                    T-Shirts</option>
+                                <option value="Hoodies" <?= $product['category'] === 'Hoodies' ? 'selected' : '' ?>>Hoodies
+                                </option>
                                 <option value="Accessories" <?= $product['category'] === 'Accessories' ? 'selected' : '' ?>>Accessories</option>
-                                <option value="Stationery" <?= $product['category'] === 'Stationery' ? 'selected' : '' ?>>Stationery</option>
-                                <option value="Other" <?= $product['category'] === 'Other' ? 'selected' : '' ?>>Other</option>
+                                <option value="Stationery" <?= $product['category'] === 'Stationery' ? 'selected' : '' ?>>
+                                    Stationery</option>
+                                <option value="Other" <?= $product['category'] === 'Other' ? 'selected' : '' ?>>Other
+                                </option>
                             </select>
                             <?php if (isset($errors['category'])): ?>
                                 <span class="error-message"><?= $errors['category'] ?></span>
                             <?php endif; ?>
                         </div>
                     </div>
-                    
+
                     <div class="form-group <?= isset($errors['description']) ? 'has-error' : '' ?>">
                         <label for="description">Product Description</label>
-                        <textarea id="description" name="description" 
-                                  placeholder="Describe the product features, materials, sizing, etc."><?= htmlspecialchars($product['description']) ?></textarea>
+                        <textarea id="description" name="description"
+                            placeholder="Describe the product features, materials, sizing, etc."><?= htmlspecialchars($product['description']) ?></textarea>
                     </div>
-                    
+
                     <div class="form-group <?= isset($errors['image']) ? 'has-error' : '' ?>">
                         <label>Product Image</label>
                         <div class="image-upload" id="imageUploadArea">
@@ -211,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <span class="error-message"><?= $errors['image'] ?></span>
                         <?php endif; ?>
                     </div>
-                    
+
                     <div class="form-actions">
                         <button type="reset" class="btn-admin btn-outline">
                             <i class="fas fa-eraser"></i> Clear Form
@@ -234,13 +240,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Auto-hide after 5 seconds
         <?php if ($success): ?>
-        setTimeout(hidePopup, 5000);
+            setTimeout(hidePopup, 5000);
         <?php endif; ?>
 
         // Reset form on success if needed
         <?php if ($success): ?>
-        document.getElementById('productForm').reset();
+            document.getElementById('productForm').reset();
         <?php endif; ?>
     </script>
 </body>
+
 </html>

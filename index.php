@@ -1,9 +1,10 @@
-<?php 
+<?php
 session_start();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,10 +14,13 @@ session_start();
     <!-- Inter Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     <!-- JavaScript Link -->
     <script src="./main.js" defer></script>
 </head>
+
 <body>
 
     <!----------------------------------------- NAVIGATION BAR ----------------------------------------->
@@ -53,7 +57,7 @@ session_start();
         </div>
         <div class="right-section">
             <?php if (!isset($_SESSION['user_id'])): ?>
-                <!-- Logged OUT state -->
+            <!-- Logged OUT state -->
                 <button type="button" onclick="window.location.href='includes/admin/login.php'">
                     Login <i class="fa-solid fa-user"></i>
                 </button>
@@ -79,7 +83,7 @@ session_start();
                         <i class="fa-solid fa-cart-shopping"></i>
                     </button>
                 <?php endif; ?>
-                
+
                 <!-- Logout Button (for all logged-in users) -->
                 <button type="button" onclick="window.location.href='includes/admin/logout.php'">
                     <i class="fa-solid fa-right-from-bracket"></i>
@@ -93,7 +97,8 @@ session_start();
         <div class="hero-container">
             <div class="hero-content">
                 <h1>Elevate Your NSBM Experience</h1>
-                <p class="hero-subtitle">Premium quality merchandise, carefully designed to showcase your NSBM pride and enhance your campus life.</p>
+                <p class="hero-subtitle">Premium quality merchandise, carefully designed to showcase your NSBM pride and
+                    enhance your campus life.</p>
                 <div class="hero-cta">
                     <a href="#" class="btn-primary">Shop Collection</a>
                     <a href="#" class="btn-outline">Explore More</a>
@@ -119,4 +124,5 @@ session_start();
     <!--------------------------------------- FONT AWESOME ICONS --------------------------------------->
     <script src="https://kit.fontawesome.com/cb8b70f796.js" crossorigin="anonymous"></script>
 </body>
+
 </html>

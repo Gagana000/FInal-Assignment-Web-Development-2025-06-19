@@ -23,6 +23,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,6 +31,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="admin-container">
         <aside class="admin-sidebar">
@@ -57,7 +59,7 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <?php if (isset($_GET['success'])): ?>
                 <div class="admin-card success-message">
-                    <i class="fas fa-check-circle"></i> 
+                    <i class="fas fa-check-circle"></i>
                     <?= htmlspecialchars($_GET['success']) ?>
                 </div>
             <?php endif; ?>
@@ -76,41 +78,38 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </thead>
                     <tbody>
                         <?php foreach ($products as $product): ?>
-                        <tr>
-                            <td>#<?= $product['id'] ?></td>
-                            <td>
-                                <div class="product-info">
-                                    <?php if (!empty($product['image_url'])): ?>
-                                    <img src="../../assets/uploads/<?= $product['image_url'] ?>" 
-                                         alt="<?= $product['name'] ?>" 
-                                         class="product-thumbnail">
-                                    <?php endif; ?>
-                                    <span><?= htmlspecialchars($product['name']) ?></span>
-                                </div>
-                            </td>
-                            <td>$<?= number_format($product['price'], 2) ?></td>
-                            <td><?= $product['stock'] ?></td>
-                            <td>
-                                <span class="status-badge <?= $product['stock'] > 0 ? 'status-active' : 'status-inactive' ?>">
-                                    <?= $product['stock'] > 0 ? 'In Stock' : 'Out of Stock' ?>
-                                </span>
-                            </td>
-                            <td>
-                                <a href="view_product.php?id=<?= $product['id'] ?>" 
-                                   class="action-btn view-btn">
-                                    <i class="fas fa-eye"></i> View
-                                </a>
-                                <a href="edit_product.php?id=<?= $product['id'] ?>" 
-                                   class="action-btn edit-btn">
-                                    <i class="fas fa-pen"></i> Edit
-                                </a>
-                                <a href="products.php?delete=true&id=<?= $product['id'] ?>" 
-                                   class="action-btn delete-btn"
-                                   onclick="return confirm('Delete this product?')">
-                                    <i class="fas fa-trash"></i> Delete
-                                </a>
-                            </td>
-                        </tr>
+                            <tr>
+                                <td>#<?= $product['id'] ?></td>
+                                <td>
+                                    <div class="product-info">
+                                        <?php if (!empty($product['image_url'])): ?>
+                                            <img src="../../assets/uploads/<?= $product['image_url'] ?>"
+                                                alt="<?= $product['name'] ?>" class="product-thumbnail">
+                                        <?php endif; ?>
+                                        <span><?= htmlspecialchars($product['name']) ?></span>
+                                    </div>
+                                </td>
+                                <td>$<?= number_format($product['price'], 2) ?></td>
+                                <td><?= $product['stock'] ?></td>
+                                <td>
+                                    <span
+                                        class="status-badge <?= $product['stock'] > 0 ? 'status-active' : 'status-inactive' ?>">
+                                        <?= $product['stock'] > 0 ? 'In Stock' : 'Out of Stock' ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <a href="view_product.php?id=<?= $product['id'] ?>" class="action-btn view-btn">
+                                        <i class="fas fa-eye"></i> View
+                                    </a>
+                                    <a href="edit_product.php?id=<?= $product['id'] ?>" class="action-btn edit-btn">
+                                        <i class="fas fa-pen"></i> Edit
+                                    </a>
+                                    <a href="products.php?delete=true&id=<?= $product['id'] ?>"
+                                        class="action-btn delete-btn" onclick="return confirm('Delete this product?')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </a>
+                                </td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -118,4 +117,5 @@ $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </main>
     </div>
 </body>
+
 </html>

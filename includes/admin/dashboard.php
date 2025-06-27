@@ -1,10 +1,10 @@
 <?php
-  session_start();
-  require_once __DIR__ . '/../auth_functions.php';
-  require_login();
-  require_admin();
+session_start();
+require_once __DIR__ . '/../auth_functions.php';
+require_login();
+require_admin();
 
-  if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     header("Location: ../login.php?redirect=admin");
     exit();
 }
@@ -12,6 +12,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
     <div class="admin-container">
         <!-- Sidebar -->
@@ -65,4 +67,5 @@
         </main>
     </div>
 </body>
+
 </html>

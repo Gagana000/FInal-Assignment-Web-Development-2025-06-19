@@ -1,23 +1,23 @@
 <?php
-  require_once __DIR__ . '/../auth_functions.php';
-  require_login();
-  require_admin();
+require_once __DIR__ . '/../auth_functions.php';
+require_login();
+require_admin();
 
-  $id = $_GET['id'];
-  $stmt = $pdo->prepare("SELECT * FROM products");
-  $stmt->execute();
+$id = $_GET['id'];
+$stmt = $pdo->prepare("SELECT * FROM products");
+$stmt->execute();
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = $_POST['name'];
-    $price = $_POST['price'];
-    $stock = $_POST['stock'];
-    
-    mysqli_query($conn, "UPDATE products SET 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $name = $_POST['name'];
+  $price = $_POST['price'];
+  $stock = $_POST['stock'];
+
+  mysqli_query($conn, "UPDATE products SET 
       name = '$name', 
       price = $price, 
       stock = $stock 
       WHERE id = $id");
-    header("Location: product.php");
+  header("Location: product.php");
 }
 ?>
 
