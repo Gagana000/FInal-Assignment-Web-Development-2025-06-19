@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /Final_Assignment_Web_Development_2025-06-19/
+  
+  # Allow access to CSS files
+  <FilesMatch "\.(css|js|jpg|png|gif)$">
+      Order allow,deny
+      Allow from all
+  </FilesMatch>
+</IfModule>
