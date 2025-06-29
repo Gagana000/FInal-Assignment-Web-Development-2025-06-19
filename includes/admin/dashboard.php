@@ -58,7 +58,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
             <div class="admin-card">
                 <div class="card-header">
                     <h2><i class="fas fa-clock-rotate-left"></i> Recent Products</h2>
-                    <a href="products.php" class="btn-primary">View All</a>
+                    <a href="product.php" class="btn-primary">View All</a>
                 </div>
                 <table class="admin-table">
                     <!-- Will be populated with PHP -->

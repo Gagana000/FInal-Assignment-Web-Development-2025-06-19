@@ -10,48 +10,7 @@ require_once __DIR__ . '/../database.php';
 // Generate CSRF token
 $csrf_token = generate_csrf_token();
 
-// Handle delete action
-if (isset($_GET['delete'])) {
-    // Verify CSRF token
-    if (!isset($_GET['csrf_token']) || !validate_csrf_token($_GET['csrf_token'])) {
-        header("Location: products.php?error=Invalid+CSRF+token");
-        exit();
-    }
-
-    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-    if (!$id) {
-        header("Location: products.php?error=Invalid+product+ID");
-        exit();
-    }
-
-    try {
-        // First get image path to delete file
-        $stmt = $pdo->prepare("SELECT image_url FROM products WHERE id = ?");
-        $stmt->execute([$id]);
-        $product = $stmt->fetch();
-
-        // Delete from database
-        $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
-        $stmt->execute([$id]);
-
-        // Delete associated image file if not default
-        if ($product && $product['image_url'] !== 'default-product.jpg') {
-            $imagePath = $_SERVER['DOCUMENT_ROOT'] . '/Final_Assignment_Web_Development_2025-06-19/assets/uploads/' . $product['image_url'];
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
-            }
-        }
-
-        header("Location: products.php?success=Product+deleted+successfully");
-        exit();
-    } catch (PDOException $e) {
-        error_log("Delete error: " . $e->getMessage());
-        header("Location: products.php?error=Failed+to+delete+product");
-        exit();
-    }
-}
-
-// Fetch all products with error handling
+// Fetch all products for display
 try {
     $stmt = $pdo->query("SELECT * FROM products ORDER BY created_at DESC");
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -71,6 +30,8 @@ try {
     <title>Manage Products - NSBM Premium</title>
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="../../main.js" defer></script>
+    <meta name="csrf-token" content="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>">
 </head>
 
 <body>
@@ -101,14 +62,14 @@ try {
             <?php if (isset($_GET['error'])): ?>
                 <div class="admin-card error-message">
                     <i class="fas fa-exclamation-circle"></i>
-                    <?= htmlspecialchars(urldecode($_GET['error'])) ?>
+                    <?= htmlspecialchars(urldecode($_GET['error']), ENT_QUOTES, 'UTF-8') ?>
                 </div>
             <?php endif; ?>
 
             <?php if (isset($_GET['success'])): ?>
                 <div class="admin-card success-message">
                     <i class="fas fa-check-circle"></i>
-                    <?= htmlspecialchars(urldecode($_GET['success'])) ?>
+                    <?= htmlspecialchars(urldecode($_GET['success']), ENT_QUOTES, 'UTF-8') ?>
                 </div>
             <?php endif; ?>
 
@@ -133,28 +94,31 @@ try {
                         </thead>
                         <tbody>
                             <?php foreach ($products as $product): ?>
-                                <tr>
-                                    <td>#<?= htmlspecialchars($product['id']) ?></td>
+                                <tr class="product-row"
+                                    data-product-id="<?= htmlspecialchars($product['id'], ENT_QUOTES, 'UTF-8') ?>">
+                                    <td>#<?= htmlspecialchars($product['id'], ENT_QUOTES, 'UTF-8') ?></td>
                                     <td>
                                         <div class="product-info">
                                             <?php
-                                            $imagePath = '/Final_Assignment_Web_Development_2025-06-19/assets/uploads/' . htmlspecialchars($product['image_url']);
+                                            $imagePath = '/Final_Assignment_Web_Development_2025-06-19/assets/uploads/' . htmlspecialchars($product['image_url'], ENT_QUOTES, 'UTF-8');
                                             $defaultImage = '../../assets/uploads/default-product.jpg';
                                             $fullPath = $_SERVER['DOCUMENT_ROOT'] . $imagePath;
                                             ?>
 
                                             <?php if (!empty($product['image_url']) && file_exists($fullPath)): ?>
-                                                <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($product['name']) ?>"
-                                                    class="product-thumbnail" onerror="this.src='<?= $defaultImage ?>'">
+                                                <img src="<?= htmlspecialchars($imagePath, ENT_QUOTES, 'UTF-8') ?>"
+                                                    alt="<?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?>"
+                                                    class="product-thumbnail"
+                                                    onerror="this.src='<?= htmlspecialchars($defaultImage, ENT_QUOTES, 'UTF-8') ?>'">
                                             <?php else: ?>
-                                                <img src="<?= $defaultImage ?>" alt="Default product image"
-                                                    class="product-thumbnail">
+                                                <img src="<?= htmlspecialchars($defaultImage, ENT_QUOTES, 'UTF-8') ?>"
+                                                    alt="Default product image" class="product-thumbnail">
                                             <?php endif; ?>
-                                            <p><?= htmlspecialchars($product['name']) ?></p>
+                                            <p><?= htmlspecialchars($product['name'], ENT_QUOTES, 'UTF-8') ?></p>
                                         </div>
                                     </td>
                                     <td>$<?= number_format($product['price'], 2) ?></td>
-                                    <td><?= htmlspecialchars($product['stock']) ?></td>
+                                    <td><?= htmlspecialchars($product['stock'], ENT_QUOTES, 'UTF-8') ?></td>
                                     <td>
                                         <span
                                             class="status-badge <?= $product['stock'] > 0 ? 'status-active' : 'status-inactive' ?>">
@@ -163,15 +127,16 @@ try {
                                     </td>
                                     <td>
                                         <div class="action-buttons">
-                                            <a href="view_product.php?id=<?= $product['id'] ?>" class="action-btn view-btn">
+                                            <a href="view_product.php?id=<?= htmlspecialchars($product['id'], ENT_QUOTES, 'UTF-8') ?>"
+                                                class="action-btn view-btn">
                                                 <i class="fas fa-eye"></i> View
                                             </a>
-                                            <a href="edit_product.php?id=<?= $product['id'] ?>" class="action-btn edit-btn">
+                                            <a href="edit_product.php?id=<?= htmlspecialchars($product['id'], ENT_QUOTES, 'UTF-8') ?>"
+                                                class="action-btn edit-btn">
                                                 <i class="fas fa-pen"></i> Edit
                                             </a>
-                                            <a href="products.php?delete=true&id=<?= $product['id'] ?>&csrf_token=<?= $csrf_token ?>"
-                                                class="action-btn delete-btn"
-                                                onclick="return confirm('Are you sure you want to delete <?= htmlspecialchars(addslashes($product['name'])) ?>?')">
+                                            <a href="delete_product.php?id=<?= htmlspecialchars($product['id'], ENT_QUOTES, 'UTF-8') ?>"
+                                                class="delete-btn action-btn">
                                                 <i class="fas fa-trash"></i> Delete
                                             </a>
                                         </div>

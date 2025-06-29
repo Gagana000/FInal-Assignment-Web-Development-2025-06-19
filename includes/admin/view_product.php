@@ -128,13 +128,13 @@ $csrf_token = generate_csrf_token();
               </div>
 
               <div class="product-actions">
-                <a href="edit_product.php?id=<?= $product['id'] ?>" class="btn-admin btn-edit">
-                  <i class="fas fa-edit"></i> Edit Product
+                <a href="edit_product.php?id=<?= htmlspecialchars($product['id'], ENT_QUOTES, 'UTF-8') ?>"
+                  class="btn-admin btn-edit">
+                  <i class="fas fa-pen"></i> Edit
                 </a>
-                <a href="product.php?delete=true&id=<?= $product['id'] ?>&csrf_token=<?= $csrf_token ?>"
-                  class="btn-admin btn-delete"
-                  onclick="return confirm('Are you sure you want to delete <?= htmlspecialchars(addslashes($product['name'])) ?>? This action cannot be undone.')">
-                  <i class="fas fa-trash"></i> Delete Product
+                <a href="delete_product.php?id=<?= htmlspecialchars($product['id'], ENT_QUOTES, 'UTF-8') ?>"
+                  class="btn-admin btn-delete">
+                  <i class="fas fa-trash"></i> Delete
                 </a>
               </div>
             </div>
