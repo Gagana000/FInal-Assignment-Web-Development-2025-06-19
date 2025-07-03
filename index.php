@@ -39,17 +39,17 @@ session_start();
             <div class="nav-buttons">
                 <ul>
                     <li><a href="./index.php"><i class="fa-solid fa-house"></i>Home</a></li>
-                    <li><a href="#"><i class="fa-solid fa-store"></i>Collection</a></li>
+                    <li><a href="./includes/collection.php"><i class="fa-solid fa-store"></i>Collection</a></li>
                     <li><a href="#">Categories<i class="fa-solid fa-caret-down"></i></a>
                         <ul class="drop-down-menu">
                             <li><a href="#">T-Shirts</a></li>
                             <li><a href="#">Hoodies</a></li>
                             <li><a href="#">Accessories</a></li>
                             <li class="devider"></li>
-                            <li><a href="#" class="view-all">View All</a></li>
+                            <li><a href="./includes/products.php" class="view-all">View All</a></li>
                         </ul>
                     </li>
-                    <li><a href="#"><i class="fa-solid fa-users"></i>About</a></li>
+                    <li><a href="./includes/about.php"><i class="fa-solid fa-users"></i>About</a></li>
                 </ul>
             </div>
 
@@ -102,8 +102,8 @@ session_start();
                 <p class="hero-subtitle">Premium quality merchandise, carefully designed to showcase your NSBM pride and
                     enhance your campus life.</p>
                 <div class="hero-cta">
-                    <a href="#" class="btn-primary">Shop Collection</a>
-                    <a href="#" class="btn-outline">Explore More</a>
+                    <a href="./includes/collection.php" class="btn-primary">Shop Collection</a>
+                    <a href="./includes/products.php" class="btn-outline">Explore More</a>
                 </div>
             </div>
             <div class="hero-features">
