@@ -32,6 +32,7 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="../../main.js" defer></script>
     <meta name="csrf-token" content="<?= htmlspecialchars($csrf_token, ENT_QUOTES, 'UTF-8') ?>">
+    <link rel="shortcut icon" href="assets/images/logo_brand.png" type="image/x-icon">
 </head>
 
 <body>

@@ -19,6 +19,8 @@ session_start();
         rel="stylesheet">
     <!-- JavaScript Link -->
     <script src="./main.js" defer></script>
+    <!-- Shortcut icon -->
+    <link rel="shortcut icon" href="assets/images/logo_brand.png" type="image/x-icon">
 </head>
 
 <body>

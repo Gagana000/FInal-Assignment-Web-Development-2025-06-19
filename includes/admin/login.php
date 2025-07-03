@@ -19,7 +19,7 @@ $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
-    $login_type = $_POST['login_type'] ?? 'customer'; // Default to customer
+    $login_type = $_POST['login_type'] ?? 'customer';
 
     if (empty($username) || empty($password)) {
         $error = "Username and password are required!";
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['user_id'] = $user['id'];
     $_SESSION['role'] = $user['role'];
     if ($user['role'] === 'admin') {
-        header("Location: dashboard.php"); // Absolute path if needed
+        header("Location: dashboard.php");
         exit();
     }
 }
@@ -71,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="../../main.js" defer></script>
+    <link rel="shortcut icon" href="assets/images/logo_brand.png" type="image/x-icon">
 </head>
 
 <body>

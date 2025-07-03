@@ -183,75 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="../../main.js" defer></script>
-  <style>
-    /* Image Management Styles */
-    .current-image-container {
-      margin-bottom: 20px;
-    }
-
-    .current-image-wrapper {
-      position: relative;
-      max-width: 300px;
-      margin-bottom: 15px;
-      transition: opacity 0.3s ease;
-    }
-
-    .current-image {
-      max-width: 100%;
-      max-height: 200px;
-      border-radius: 8px;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      display: block;
-    }
-
-    .image-actions {
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn-image-action {
-      background: rgba(220, 53, 69, 0.1);
-      color: #dc3545;
-      border: 1px solid rgba(220, 53, 69, 0.2);
-      border-radius: 4px;
-      padding: 5px 10px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .btn-image-action:hover {
-      background: rgba(220, 53, 69, 0.2);
-    }
-
-    .remove-new-image {
-      background: rgba(108, 117, 125, 0.1);
-      color: #6c757d;
-      border-color: rgba(108, 117, 125, 0.2);
-    }
-
-    .remove-new-image:hover {
-      background: rgba(108, 117, 125, 0.2);
-    }
-
-    .no-image-message {
-      color: #6c757d;
-      padding: 15px;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.03);
-      border-radius: 8px;
-      margin-bottom: 15px;
-    }
-
-    .no-image-message i {
-      font-size: 2rem;
-      display: block;
-      margin-bottom: 5px;
-      opacity: 0.5;
-    }
-  </style>
+  <link rel="shortcut icon" href="assets/images/logo_brand.png" type="image/x-icon">
 </head>
 
 <body>
