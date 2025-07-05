@@ -1,14 +1,9 @@
 <?php
 session_start();
-require_once __DIR__ . '../../includes/database.php';
+require_once __DIR__ . '/database.php';
+require_once __DIR__ . '/auth_functions.php';
 
-// Redirect if already logged in
-if (isset($_SESSION['user_id'])) {
-    header("Location: ../index.php");
-    exit();
-}
-
-$errors = [];
+$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username']);
@@ -16,41 +11,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // Validation
-    if (empty($username)) {
-        $errors[] = "Username is required";
-    }
+    // Validate inputs
+    if (empty($username) || empty($email) || empty($password)) {
+        $error = "All fields are required!";
+    } elseif ($password !== $confirm_password) {
+        $error = "Passwords do not match!";
+    } elseif (strlen($password) < 8) {
+        $error = "Password must be at least 8 characters!";
+    } else {
+        // Check if username or email already exists
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+        $stmt->execute([$username, $email]);
 
-    if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors[] = "Valid email is required";
-    }
+        if ($stmt->fetch()) {
+            $error = "Username or email already exists!";
+        } else {
+            // Create new user
+            $hashed_password = hash_password($password);
+            $stmt = $pdo->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'customer')");
 
-    if (strlen($password) < 8) {
-        $errors[] = "Password must be at least 8 characters";
-    }
-
-    if ($password !== $confirm_password) {
-        $errors[] = "Passwords do not match";
-    }
-
-    // Check if email exists
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE email = ?");
-    $stmt->execute([$email]);
-    if ($stmt->fetch()) {
-        $errors[] = "Email already registered";
-    }
-
-    // If no errors, register user
-    if (empty($errors)) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $role = 'customer'; // Default role
-
-        $stmt = $pdo->prepare("INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$username, $email, $hashed_password, $role]);
-
-        $_SESSION['success'] = "Registration successful! Please login.";
-        header("Location: admin/login.php");
-        exit();
+            if ($stmt->execute([$username, $email, $hashed_password])) {
+                $_SESSION['success'] = "Registration successful! Please login.";
+                header("Location: admin/login.php");
+                exit();
+            } else {
+                $error = "Registration failed. Please try again.";
+            }
+        }
     }
 }
 ?>
@@ -73,6 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             justify-content: center;
             width: 100%;
             height: 100vh;
+        }
+
+        label {
+            color: white !important;
+        }
+
+        input {
+            color: white !important;
         }
     </style>
 </head>
@@ -121,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <button type="submit" class="btn">Register</button>
         </form>
-        <p>Already have an account? <a href="login.php">Login here</a></p>
+        <p>Already have an account? <a href="../includes/admin/login.php">Login here</a></p>
     </div>
 </body>
 

@@ -32,7 +32,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
     <link rel="shortcut icon" href="assets/images/logo_brand.png" type="image/x-icon">
     <style>
         /* Featured Products Section */
-        /* ===== Featured Products Section - Multi-row Layout ===== */
         .featured-products {
             padding: 5rem 1.25rem;
             background: radial-gradient(circle at center, #01141b 0%, #000 100%);
@@ -307,7 +306,6 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
             }
         }
 
-        /* ===== Products by Category Section ===== */
         /* Categories Showcase Section */
         .categories-showcase {
             padding: 5rem 1.25rem;
@@ -706,6 +704,50 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 width: 100%;
             }
         }
+
+        /* Toast Message */
+        .toast-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 6px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: slideIn 0.3s forwards;
+        }
+
+        .toast-message.success {
+            background: var(--primary-accent);
+        }
+
+        .toast-message.error {
+            background: #dc3545;
+        }
+
+        .close-toast {
+            background: none;
+            border: none;
+            color: white;
+            margin-left: 15px;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
     </style>
 </head>
 
@@ -727,20 +769,24 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     <li><a href="./includes/products.php"><i class="fa-solid fa-store"></i>Store</a></li>
                     <li><a href="#">Categories<i class="fa-solid fa-caret-down"></i></a>
                         <ul class="drop-down-menu">
-                            <li><a href="#">T-Shirts</a></li>
-                            <li><a href="#">Hoodies</a></li>
-                            <li><a href="#">Accessories</a></li>
-                            <li><a href="#">Electronics</a></li>
+                            <li><a
+                                    href="./includes/products.php?search=&category=T-Shirts&min_price=&max_price=">T-Shirts</a>
+                            </li>
+                            <li><a
+                                    href="./includes/products.php?search=&category=Hoodies&min_price=&max_price=">Hoodies</a>
+                            </li>
+                            <li><a
+                                    href="./includes/products.php?search=&category=Other&min_price=&max_price=">Accessories</a>
+                            </li>
+                            <li><a
+                                    href="./includes/products.php?search=&category=Electronics&min_price=&max_price=">Electronics</a>
+                            </li>
                             <li class="devider"></li>
                             <li><a href="./includes/products.php" class="view-all">View All</a></li>
                         </ul>
                     </li>
                     <li><a href="#"><i class="fa-solid fa-users"></i>About</a></li>
                 </ul>
-            </div>
-
-            <div class="nav-search">
-                <input type="text" name="search" id="search" placeholder="Search">
             </div>
         </div>
         <div class="right-section">
@@ -903,7 +949,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
             <p class="subtitle">Browse our premium collections</p>
 
             <div class="category-grid">
-                <a href="products.php?category=T-Shirts" class="category-card">
+                <a href="./includes/products.php?search=&category=T-Shirts&min_price=&max_price=" class="category-card">
                     <div class="category-image">
                         <img src="assets/images/category-tshirts.jpg" alt="T-Shirts">
                         <div class="overlay"></div>
@@ -911,7 +957,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     <h3>T-Shirts</h3>
                 </a>
 
-                <a href="products.php?category=Hoodies" class="category-card">
+                <a href="./includes/products.php?search=&category=Hoodies&min_price=&max_price=" class="category-card">
                     <div class="category-image">
                         <img src="assets/images/category-hoodies.jpg" alt="Hoodies">
                         <div class="overlay"></div>
@@ -919,7 +965,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     <h3>Hoodies</h3>
                 </a>
 
-                <a href="products.php?category=Accessories" class="category-card">
+                <a href="./includes/products.php?search=&category=Other&min_price=&max_price=" class="category-card">
                     <div class="category-image">
                         <img src="assets/images/category-accessories.jpg" alt="Accessories">
                         <div class="overlay"></div>
@@ -927,7 +973,8 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                     <h3>Accessories</h3>
                 </a>
 
-                <a href="products.php?category=Stationery" class="category-card">
+                <a href="./includes/products.php?search=&category=Electronics&min_price=&max_price="
+                    class="category-card">
                     <div class="category-image">
                         <img src="assets/images/category-electronics.jpg" alt="Stationery">
                         <div class="overlay"></div>
@@ -1162,6 +1209,60 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
                 });
             }
         });
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const productId = this.getAttribute('data-product-id');
+
+                fetch('includes/cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `product_id=${productId}&action=add`
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Product added to cart!');
+                        } else {
+                            if (data.message.includes('login')) {
+                                window.location.href = 'includes/admin/login.php';
+                            } else {
+                                showToast(data.message || 'Error adding to cart', 'error');
+                            }
+                        }
+                    });
+            });
+        });
+
+        function showToast(message, type = 'success') {
+            // Remove any existing toasts first
+            document.querySelectorAll('.toast-message').forEach(toast => toast.remove());
+
+            const toast = document.createElement('div');
+            toast.className = `toast-message ${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+                <button class="close-toast">&times;</button>
+            `;
+
+            document.body.appendChild(toast);
+
+            // Close button functionality
+            toast.querySelector('.close-toast').addEventListener('click', () => {
+                toast.remove();
+            });
+
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                if (document.body.contains(toast)) {
+                    toast.remove();
+                }
+            }, 3000);
+        }
     </script>
 </body>
 

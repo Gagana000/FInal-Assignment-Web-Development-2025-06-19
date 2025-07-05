@@ -73,7 +73,7 @@ try {
         <main class="admin-main">
             <div class="admin-header">
                 <h1 class="admin-title animate__animated animate__fadeIn">Dashboard Overview</h1>
-                <a href="../logout.php" class="btn-admin btn-outline hover-grow">
+                <a href="logout.php" class="btn-admin btn-outline hover-grow">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </div>
@@ -171,10 +171,13 @@ try {
                                     <td>#<?= htmlspecialchars($product['id']) ?></td>
                                     <td>
                                         <div class="product-info">
-                                            <?php if (!empty($product['image_url'])): ?>
-                                                <img src="../../assets/uploads/<?= htmlspecialchars($product['image_url']) ?>"
-                                                    alt="<?= htmlspecialchars($product['name']) ?>" class="product-thumbnail">
-                                            <?php endif; ?>
+                                            <?php
+                                            $imagePath = '/Final_Assignment_Web_Development_2025-06-19/assets/uploads/' . htmlspecialchars($product['image_url'] ?: 'default-product.jpg');
+                                            $defaultImage = '../../assets/uploads/default-product.jpg';
+                                            ?>
+
+                                            <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($product['name']) ?>"
+                                                onerror="this.src='<?= $defaultImage ?>'" class="product-thumbnail">
                                             <span><?= htmlspecialchars($product['name']) ?></span>
                                         </div>
                                     </td>
