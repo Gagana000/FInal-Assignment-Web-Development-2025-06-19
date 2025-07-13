@@ -88,7 +88,7 @@ foreach ($cartItems as $item) {
     : $item['price'];
   $subtotal += $price * $item['quantity'];
 }
-$tax = $subtotal * 0.05; // Example 5% tax
+$tax = $subtotal * 0.05;
 $total = $subtotal + $tax;
 ?>
 
@@ -364,7 +364,7 @@ $total = $subtotal + $tax;
       }
     }
 
-    /* ===== Footer Section ===== */
+    /* Footer Section */
     footer {
       background: #01141b;
       color: white;

@@ -25,10 +25,8 @@ try {
   $stmt = $pdo->query("SELECT * FROM settings");
   $db_settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 
-  // Merge with defaults (database values take precedence)
   $settings = array_merge($default_settings, $db_settings);
 } catch (PDOException $e) {
-  // If settings table doesn't exist yet, use defaults
   $settings = $default_settings;
   $error = "Settings table not found, using defaults. Create the table to save settings.";
 }
@@ -100,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $_SESSION['error'] = "Failed to save settings";
     }
   } else {
-    // Use validated values even if some failed
     $settings = array_merge($settings, $new_settings);
   }
 }
@@ -256,7 +253,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 
   <script>
-    // Update currency symbol when currency changes
     document.getElementById('store_currency').addEventListener('change', function () {
       const currency = this.value;
       const symbol = currency === 'LKR' ? 'Rs.' : '$';

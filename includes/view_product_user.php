@@ -25,7 +25,7 @@ if (!$product) {
 
 // Calculate discounted price if applicable
 $originalPrice = $product['price'];
-$discountPrice = $product['discount_percent'] > 0 
+$discountPrice = $product['discount_percent'] > 0
     ? $originalPrice * (1 - ($product['discount_percent'] / 100))
     : null;
 
@@ -47,7 +47,9 @@ $relatedProducts = $relatedStmt->fetchAll();
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="shortcut icon" href="../assets/images/logo_brand.png" type="image/x-icon">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
     <style>
         /* Product View Container */
         .product-view-container {
@@ -416,7 +418,8 @@ $relatedProducts = $relatedStmt->fetchAll();
             <span class="separator">/</span>
             <a href="products.php">Store</a>
             <span class="separator">/</span>
-            <a href="products.php?category=<?= urlencode($product['category']) ?>"><?= htmlspecialchars($product['category']) ?></a>
+            <a
+                href="products.php?category=<?= urlencode($product['category']) ?>"><?= htmlspecialchars($product['category']) ?></a>
             <span class="separator">/</span>
             <span><?= htmlspecialchars($product['name']) ?></span>
         </div>
@@ -427,11 +430,12 @@ $relatedProducts = $relatedStmt->fetchAll();
                 $imagePath = '/Final_Assignment_Web_Development_2025-06-19/assets/uploads/' . htmlspecialchars($product['image_url'] ?: 'default-product.jpg');
                 $defaultImage = '../assets/uploads/default-product.jpg';
                 ?>
-                <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="main-image" id="mainImage" onerror="this.src='<?= $defaultImage ?>'">
-                
+                <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="main-image"
+                    id="mainImage" onerror="this.src='<?= $defaultImage ?>'">
+
                 <div class="thumbnail-container">
-                    <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="thumbnail" onerror="this.src='<?= $defaultImage ?>'" onclick="changeMainImage(this.src)">
-                    <!-- Additional thumbnails would go here -->
+                    <img src="<?= $imagePath ?>" alt="<?= htmlspecialchars($product['name']) ?>" class="thumbnail"
+                        onerror="this.src='<?= $defaultImage ?>'" onclick="changeMainImage(this.src)">
                 </div>
             </div>
 
@@ -462,13 +466,15 @@ $relatedProducts = $relatedStmt->fetchAll();
 
                 <div class="product-description">
                     <h3 style="color: black;">Description</h3>
-                    <p style="color: black;"><?= nl2br(htmlspecialchars($product['description'] ?: 'No description available.')) ?></p>
+                    <p style="color: black;">
+                        <?= nl2br(htmlspecialchars($product['description'] ?: 'No description available.')) ?></p>
                 </div>
 
                 <div class="product-actions">
                     <div class="quantity-control">
                         <button class="quantity-btn" onclick="updateQuantity(-1)"><i class="fas fa-minus"></i></button>
-                        <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="<?= $product['stock'] ?>">
+                        <input type="number" class="quantity-input" id="quantity" value="1" min="1"
+                            max="<?= $product['stock'] ?>">
                         <button class="quantity-btn" onclick="updateQuantity(1)"><i class="fas fa-plus"></i></button>
                     </div>
                     <button class="add-to-cart-btn" id="addToCartBtn" <?= $product['stock'] <= 0 ? 'disabled' : '' ?>>
@@ -493,7 +499,8 @@ $relatedProducts = $relatedStmt->fetchAll();
                                 <?php
                                 $relatedImagePath = '/Final_Assignment_Web_Development_2025-06-19/assets/uploads/' . htmlspecialchars($related['image_url'] ?: 'default-product.jpg');
                                 ?>
-                                <img src="<?= $relatedImagePath ?>" alt="<?= htmlspecialchars($related['name']) ?>" class="product-image" onerror="this.src='<?= $defaultImage ?>'">
+                                <img src="<?= $relatedImagePath ?>" alt="<?= htmlspecialchars($related['name']) ?>"
+                                    class="product-image" onerror="this.src='<?= $defaultImage ?>'">
                             </div>
                             <div class="product-info">
                                 <h3><?= htmlspecialchars($related['name']) ?></h3>
@@ -540,7 +547,7 @@ $relatedProducts = $relatedStmt->fetchAll();
         }
 
         // Add to cart functionality
-        document.getElementById('addToCartBtn').addEventListener('click', function() {
+        document.getElementById('addToCartBtn').addEventListener('click', function () {
             const productId = <?= $product['id'] ?>;
             const quantity = document.getElementById('quantity').value;
 
@@ -551,33 +558,6 @@ $relatedProducts = $relatedStmt->fetchAll();
                 },
                 body: `product_id=${productId}&quantity=${quantity}&action=add`
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    showToast('Product added to cart!');
-                } else {
-                    if (data.message.includes('login')) {
-                        window.location.href = 'admin/login.php';
-                    } else {
-                        showToast(data.message || 'Error adding to cart', 'error');
-                    }
-                }
-            });
-        });
-
-        // Add to cart for related products
-        document.querySelectorAll('.related-grid .add-to-cart').forEach(button => {
-            button.addEventListener('click', function(e) {
-                e.preventDefault();
-                const productId = this.getAttribute('data-product-id');
-
-                fetch('cart.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `product_id=${productId}&action=add`
-                })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -590,6 +570,33 @@ $relatedProducts = $relatedStmt->fetchAll();
                         }
                     }
                 });
+        });
+
+        // Add to cart for related products
+        document.querySelectorAll('.related-grid .add-to-cart').forEach(button => {
+            button.addEventListener('click', function (e) {
+                e.preventDefault();
+                const productId = this.getAttribute('data-product-id');
+
+                fetch('cart.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `product_id=${productId}&action=add`
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            showToast('Product added to cart!');
+                        } else {
+                            if (data.message.includes('login')) {
+                                window.location.href = 'admin/login.php';
+                            } else {
+                                showToast(data.message || 'Error adding to cart', 'error');
+                            }
+                        }
+                    });
             });
         });
 

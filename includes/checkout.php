@@ -30,7 +30,7 @@ foreach ($cartItems as $item) {
     : $item['price'];
   $subtotal += $price * $item['quantity'];
 }
-$tax = $subtotal * 0.05; // Example 5% tax
+$tax = $subtotal * 0.05;
 $total = $subtotal + $tax;
 
 // Handle form submission

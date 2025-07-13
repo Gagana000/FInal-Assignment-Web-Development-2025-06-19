@@ -125,7 +125,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
             font-weight: 600;
         }
 
-        /* Product Info Section - Now in multiple rows */
+        /* Product Info Section */
         .product-info {
             padding: 1.25rem;
             color: #fff;
@@ -424,7 +424,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
             }
         }
 
-        /* ===== Testimonials Section ===== */
+        /* Testimonials Section */
         .testimonials {
             padding: 5rem 1.25rem;
             background: radial-gradient(circle at center, #01141b 0%, #000 100%);
@@ -463,12 +463,10 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
             padding: 1rem 0;
             scroll-snap-type: x mandatory;
             scrollbar-width: none;
-            /* Firefox */
         }
 
         .testimonial-slider::-webkit-scrollbar {
             display: none;
-            /* Chrome/Safari */
         }
 
         .testimonial-card {
@@ -1140,7 +1138,7 @@ $categories = $stmt->fetchAll(PDO::FETCH_COLUMN);
             };
 
             window.addEventListener('scroll', animateOnScroll);
-            animateOnScroll(); // Run once on load
+            animateOnScroll();
 
             // Auto-scroll testimonials
             const slider = document.querySelector('.testimonial-slider');
