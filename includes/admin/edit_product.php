@@ -115,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $targetPath = $uploadDir . $fileName;
 
         if (move_uploaded_file($_FILES['image']['tmp_name'], $targetPath)) {
-          // Delete old image if it's not the default
           if ($product['image_url'] !== 'default-product.jpg') {
             $oldImagePath = $uploadDir . $product['image_url'];
             if (file_exists($oldImagePath)) {
@@ -183,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <script src="../../main.js" defer></script>
-  <link rel="shortcut icon" href="assets/images/logo_brand.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../../assets/images/logo_brand.png" type="image/x-icon">
 </head>
 
 <body>

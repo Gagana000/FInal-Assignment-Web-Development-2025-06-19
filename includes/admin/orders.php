@@ -72,7 +72,7 @@ try {
   <title>Order Management - NSBM Premium</title>
   <link rel="stylesheet" href="../../style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="shortcut icon" href="assets/images/logo_brand.png" type="image/x-icon">
+  <link rel="shortcut icon" href="../../assets/images/logo_brand.png" type="image/x-icon">
 </head>
 
 <body>

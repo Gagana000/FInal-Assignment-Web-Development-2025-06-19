@@ -46,9 +46,6 @@ function verify_password($password, $hash)
     return password_verify($password, $hash);
 }
 
-/**
- * Redirect to login if not authenticated
- */
 function require_login()
 {
     if (!is_logged_in()) {
@@ -57,9 +54,6 @@ function require_login()
     }
 }
 
-/**
- * CSRF token generation and validation
- */
 function generate_csrf_token()
 {
     if (empty($_SESSION['csrf_token'])) {

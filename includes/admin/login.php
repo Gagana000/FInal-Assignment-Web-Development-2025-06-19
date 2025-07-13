@@ -4,15 +4,9 @@ require_once __DIR__ . '/../database.php';
 
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
-    header("Location: " . ($_SESSION['role'] === 'admin' ? '../../index.php' : '../../index.php'));
+    header("Location: " . ($_SESSION['role'] === 'admin' ? 'dashboard.php' : '../../index.php'));
     exit();
 }
-
-if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin') {
-    header("Location: dashboard.php");
-    exit();
-}
-
 
 $error = '';
 
@@ -24,43 +18,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($username) || empty($password)) {
         $error = "Username and password are required!";
     } else {
-        // Fetch user from database
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->execute([$username]);
-        $user = $stmt->fetch();
+        try {
+            // Fetch user from database
+            $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+            $stmt->execute([$username]);
+            $user = $stmt->fetch();
 
-        if ($user) {
-            // Verify password
-            if (password_verify($password, $user['password'])) {
-                // Check role if logging in as admin
-                if ($login_type === 'admin' && $user['role'] !== 'admin') {
-                    $error = "Admin privileges required!";
+            if ($user) {
+                // Verify password
+                if (password_verify($password, $user['password'])) {
+                    // Check role if logging in as admin
+                    if ($login_type === 'admin' && $user['role'] !== 'admin') {
+                        $error = "Admin privileges required!";
+                    } else {
+                        // Set session variables
+                        $_SESSION['user_id'] = $user['id'];
+                        $_SESSION['username'] = $user['username'];
+                        $_SESSION['role'] = $user['role'];
+
+                        // Redirect based on role
+                        header("Location: " . ($user['role'] === 'admin' ? 'dashboard.php' : '../../index.php'));
+                        exit();
+                    }
                 } else {
-                    // Set session variables
-                    $_SESSION['user_id'] = $user['id'];
-                    $_SESSION['username'] = $user['username'];
-                    $_SESSION['role'] = $user['role'];
-
-                    // Redirect based on role
-                    header("Location: " . ($user['role'] === 'admin' ? '../../index.php' : '../../index.php'));
-                    exit();
+                    $error = "Invalid username or password!";
                 }
             } else {
                 $error = "Invalid username or password!";
             }
-        } else {
-            $error = "Invalid username or password!";
+        } catch (PDOException $e) {
+            error_log("Database error: " . $e->getMessage());
+            $error = "Login failed. Please try again later.";
         }
-    }
-
-    $_SESSION['user_id'] = $user['id'];
-    $_SESSION['role'] = $user['role'];
-    if ($user['role'] === 'admin') {
-        header("Location: dashboard.php");
-        exit();
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -71,7 +64,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="../../main.js" defer></script>
-    <link rel="shortcut icon" href="assets/images/logo_brand.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../../assets/images/logo_brand.png" type="image/x-icon">
+    <style>
+        label {
+            color: white !important;
+        }
+
+        input {
+            color: white !important;
+        }
+    </style>
 </head>
 
 <body>
